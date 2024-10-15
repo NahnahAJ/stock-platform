@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    
+    <!-- Display form errors (if any) -->
+    {% for message in form.errors %}
+    <div style="color: red;">{{ message }}</div>
+    {% endfor %}
+    
+    <form method="POST" action="{{ url_for('login') }}">
+        <!-- This automatically renders the CSRF token -->
+        {{ form.hidden_tag() }}
+        
+        <!-- Render email field -->
+        <div>
+            {{ form.email.label }}<br>
+            {{ form.email(size=32) }}<br>
+            {% if form.email.errors %}
+                <div style="color: red;">{{ form.email.errors[0] }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Render password field -->
+        <div>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}<br>
+            {% if form.password.errors %}
+                <div style="color: red;">{{ form.password.errors[0] }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Render submit button -->
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+</body>
+</html>
