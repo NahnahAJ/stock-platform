@@ -1,0 +1,12 @@
+<form method="POST" action="{{ url_for('add_stock') }}">
+    <label for="item">Item:</label>
+    <input type="text" name="item" required>
+    <label for="quantity">Quantity:</label>
+    <input type="number" name="quantity" required>
+    <button type="submit">Add Stock</button>
+</form>
+
+{% if session['role'] == 'admin' %}
+  <a href="{{ url_for('manage_stock') }}">Manage Stock</a>
+{% endif %}
+<a href="{{ url_for('daily_sales') }}">Daily Sales</a>
