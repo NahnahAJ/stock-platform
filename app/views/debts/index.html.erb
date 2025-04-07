@@ -1,0 +1,24 @@
+<!-- app/views/debts/index.html.erb -->
+<h1>Outstanding Debts</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Customer</th>
+      <th>Phone</th>
+      <th>Sale ID</th>
+      <th>Due Date</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @debts.each do |debt| %>
+      <tr>
+        <td><%= debt.customer.name %></td>
+        <td><%= debt.customer.phone %></td>
+        <td>#<%= debt.sale.id %></td>
+        <td><%= debt.due_date.strftime('%d %b %Y') %></td>
+        <td><%= number_to_currency(debt.remaining_amount) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

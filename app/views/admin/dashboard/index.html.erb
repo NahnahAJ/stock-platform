@@ -1,0 +1,22 @@
+<%# app/views/admin/dashboard/index.html.erb %>  
+<h1>Admin Dashboard</h1>  
+
+<div class="stats">  
+  <div class="stat-card">  
+    <h3>Low-Stock Items</h3>  
+    <ul>  
+      <% @low_stock_items.each do |item| %>  
+        <li><%= item.name %> (<%= item.quantity %> left)</li>  
+      <% end %>  
+    </ul>  
+  </div>  
+
+  <div class="stat-card">  
+    <h3>Recent Purchases</h3>  
+    <ul>  
+      <% @recent_purchases.each do |purchase| %>  
+        <li><%= purchase.supplier.name %> - <%= purchase.total_cost %></li>  
+      <% end %>  
+    </ul>  
+  </div>  
+</div>  

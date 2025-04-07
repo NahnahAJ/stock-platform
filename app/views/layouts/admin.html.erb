@@ -1,0 +1,14 @@
+<!DOCTYPE html>  
+<html>  
+  <head>  
+    <title>Admin Panel</title>  
+    <%= csrf_meta_tags %>  
+    <%= csp_meta_tag %>  
+  </head>  
+  <body>  
+    <%= render "admin/navbar" %>  
+    <p class="notice"><%= notice %></p>  
+    <p class="alert"><%= alert %></p>  
+    <%= yield %>  
+  </body>  
+</html>  

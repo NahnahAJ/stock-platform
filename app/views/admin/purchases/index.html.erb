@@ -1,0 +1,23 @@
+<%# app/views/admin/purchases/index.html.erb %>
+<h1>Purchase History</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Supplier</th>
+      <th>Order Date</th>
+      <th>Total Cost</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @purchases.each do |purchase| %>
+      <tr>
+        <td><%= purchase.supplier.name %></td>
+        <td><%= purchase.order_date %></td>
+        <td><%= number_to_currency(purchase.total_cost) %></td>
+        <td><%= link_to "Details", admin_purchase_path(purchase) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,33 @@
+<%# app/views/admin/items/index.html.erb %>  
+<h1>Manage Items</h1>  
+
+<table>  
+  <thead>  
+    <tr>  
+      <th>Name</th>  
+      <th>Quantity</th>  
+      <th>Threshold</th>  
+      <th>Price</th>  
+      <th>Actions</th>  
+    </tr>  
+  </thead>  
+  <tbody>  
+    <% @items.each do |item| %>  
+      <tr>  
+        <td><%= item.name %></td>  
+        <td><%= item.quantity %></td>  
+        <td><%= item.low_stock_threshold %></td>  
+        <td><%= number_to_currency(item.price) %></td>  
+        <td>  
+          <%= link_to "Edit", edit_admin_item_path(item) %>  
+          <%= button_to "Delete", admin_item_path(item), method: :delete %>  
+        </td>  
+      </tr>  
+    <% end %>  
+
+    <%= form_with url: admin_items_path, method: :get do |f| %>  
+  <%= f.text_field :search, placeholder: "Search items..." %>  
+  <%= f.submit "Search" %>  
+<% end %>  
+  </tbody>  
+</table>  

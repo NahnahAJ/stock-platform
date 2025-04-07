@@ -1,0 +1,16 @@
+<%# app/views/admin/suppliers/_form.html.erb %>
+<%= form_with model: [:admin, supplier] do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :contact %>
+  <%= f.text_field :contact %>
+
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+
+  <%= f.label :address %>
+  <%= f.text_area :address %>
+
+  <%= f.submit %>
+<% end %>

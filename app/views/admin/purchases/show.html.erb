@@ -1,0 +1,28 @@
+<%# app/views/admin/purchases/show.html.erb %>
+<h1>Purchase Details</h1>
+
+<p>
+  <strong>Supplier:</strong> <%= @purchase.supplier.name %>
+</p>
+
+<h3>Items</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Quantity</th>
+      <th>Unit Cost</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @purchase_items.each do |pi| %>
+      <tr>
+        <td><%= pi.item.name %></td>
+        <td><%= pi.quantity %></td>
+        <td><%= number_to_currency(pi.unit_cost) %></td>
+        <td><%= number_to_currency(pi.quantity * pi.unit_cost) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
