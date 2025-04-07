@@ -1,0 +1,11 @@
+<h1>Purchase History</h1>  
+<% @purchases.each do |purchase| %>  
+  <div class="purchase">  
+    <h3><%= purchase.supplier.name %> (<%= purchase.order_date %>)</h3>  
+    <ul>  
+      <% purchase.purchase_items.each do |pi| %>  
+        <li><%= pi.item.name %> x<%= pi.quantity %> @ $<%= pi.unit_cost %></li>  
+      <% end %>  
+    </ul>  
+  </div>  
+<% end %>  

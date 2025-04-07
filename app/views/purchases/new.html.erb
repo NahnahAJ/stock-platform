@@ -1,0 +1,18 @@
+<h1>New Purchase Order</h1>  
+<%= form_with model: @purchase do |f| %>  
+  <%= f.label :supplier_id, "Supplier" %>  
+  <%= f.collection_select :supplier_id, Supplier.all, :id, :name %>  
+
+  <%= f.fields_for :purchase_items do |pi| %>  
+    <div class="purchase-item-fields">  
+      <%= pi.label :item_id, "Item" %>  
+      <%= pi.collection_select :item_id, Item.all, :id, :name %>  
+      <%= pi.label :quantity %>  
+      <%= pi.number_field :quantity %>  
+      <%= pi.label :unit_cost %>  
+      <%= pi.number_field :unit_cost, step: 0.01 %>  
+    </div>  
+  <% end %>  
+
+  <%= f.submit "Save Purchase" %>  
+<% end %>  

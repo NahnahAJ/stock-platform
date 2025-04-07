@@ -5,4 +5,6 @@ class Item < ApplicationRecord
   has_many :sales_items
   has_many :sales, through: :sales_items
   validates :quantity, numericality: {greater_than_or_equal_to: 0}
+
+  scope :low_stock, -> { where("quantity < low_stock_threshold") }  
 end
