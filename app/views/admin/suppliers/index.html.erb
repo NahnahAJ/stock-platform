@@ -1,0 +1,27 @@
+<%# app/views/admin/suppliers/index.html.erb %>
+<h1>Manage Suppliers</h1>
+<%= link_to "New Supplier", new_admin_supplier_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Contact</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @suppliers.each do |supplier| %>
+      <tr>
+        <td><%= supplier.name %></td>
+        <td><%= supplier.contact %></td>
+        <td><%= supplier.email %></td>
+        <td>
+          <%= link_to "Edit", edit_admin_supplier_path(supplier) %>
+          <%= button_to "Delete", admin_supplier_path(supplier), method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
