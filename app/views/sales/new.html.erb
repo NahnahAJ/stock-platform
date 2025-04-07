@@ -1,2 +1,68 @@
-<h1>Sales#new</h1>
-<p>Find me in app/views/sales/new.html.erb</p>
+<div class="pos">
+  <!-- Search & Items -->
+  <div class="item-search">
+    <input type="text" id="search" placeholder="Search items...">
+    <div id="item-results"></div>
+  </div>
+
+  <!-- Cart -->
+  <div class="cart">
+    <h2>Cart</h2>
+    <div id="cart-items"></div>
+    <p>Total: $<span id="total">0.00</span></p>
+    <%= form_with url: sales_path, id: "sale-form" do |f| %>
+      <%= f.hidden_field :items, id: "sale-items" %>
+      <%= f.hidden_field :is_debt, id: "is-debt" %>
+      <div id="debt-fields" style="display: none;">
+        <input type="text" name="customer_name" placeholder="Customer Name">
+        <input type="date" name="due_date">
+      </div>
+      <button type="submit">Complete Sale</button>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  let cart = [];
+  let items = [];
+
+  // Fetch items from Rails API
+  fetch('/api/items')
+    .then(response => response.json())
+    .then(data => items = data);
+
+  // Search items
+  document.getElementById('search').addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase();
+    const filtered = items.filter(item => item.name.toLowerCase().includes(term));
+    renderItemResults(filtered);
+  });
+
+  // Add to cart
+  function addToCart(itemId, quantity = 1) {
+    const item = items.find(i => i.id === itemId);
+    cart.push({ ...item, quantity });
+    renderCart();
+  }
+
+  // Render cart
+  function renderCart() {
+    const cartElement = document.getElementById('cart-items');
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    
+    cartElement.innerHTML = cart.map(item => `
+      <div class="cart-item">
+        <span>${item.name} x${item.quantity} @ $${item.price}</span>
+        <button onclick="removeFromCart(${item.id})">Remove</button>
+      </div>
+    `).join('');
+
+    document.getElementById('total').textContent = total.toFixed(2);
+    document.getElementById('sale-items').value = JSON.stringify(cart);
+  }
+
+  // Toggle debt fields
+  document.getElementById('is-debt').addEventListener('change', (e) => {
+    document.getElementById('debt-fields').style.display = e.target.checked ? 'block' : 'none';
+  });
+</script>

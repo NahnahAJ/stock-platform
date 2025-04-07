@@ -10,12 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_07_023757) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_07_100952) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string "name"
+    t.string "phone"
+    t.string "email"
+    t.text "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -28,6 +37,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_07_023757) do
     t.decimal "remaining_amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "customer_id", null: false
+    t.index ["customer_id"], name: "index_debts_on_customer_id"
     t.index ["sale_id"], name: "index_debts_on_sale_id"
   end
 
@@ -95,6 +106,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_07_023757) do
     t.boolean "is_debt", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "customer_id", null: false
+    t.index ["customer_id"], name: "index_sales_on_customer_id"
     t.index ["user_id"], name: "index_sales_on_user_id"
   end
 
@@ -120,6 +133,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_07_023757) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "debts", "customers"
   add_foreign_key "debts", "sales"
   add_foreign_key "items", "categories"
   add_foreign_key "notifications", "users"
@@ -128,5 +142,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_07_023757) do
   add_foreign_key "purchases", "suppliers"
   add_foreign_key "sale_items", "items"
   add_foreign_key "sale_items", "sales"
+  add_foreign_key "sales", "customers"
   add_foreign_key "sales", "users"
 end
